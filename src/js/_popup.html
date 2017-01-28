@@ -1,0 +1,13 @@
+<div class="popuptext">
+  <div class="close">X</div>
+  <div class="date">Date of death: {{date}}</div>
+  {{#officer}}<div class="officer">{{officer}}</div>{{/officer}}
+  <div class="descript"><span class="emphasis">{{victim}}<br>{{#victim2}}{{victim2}}</span>{{/victim2}}</div>
+
+  <div class="descript">{{location}}
+    <span class="charged">{{details}}</span>
+    {{#links}}<a class="link" href="{{links}}" target="_blank">Read more here</a>
+    {{#additional_links}} and <a class="link" href="{{additional_links}}" target="_blank">here</a>{{/additional_links}}
+    {{/links}}
+  </div>
+</div>
