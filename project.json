@@ -5,8 +5,8 @@
       "path": "husky-serpent"
     },
     "live": {
-      "bucket": "",
-      "path": ""
+      "bucket": "projects.seattletimes.com",
+      "path": "2017/local/homicides-2016"
     }
   },
   "title": "",

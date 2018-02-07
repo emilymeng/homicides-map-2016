@@ -17,47 +17,47 @@ var ich = require("icanhaz");
 var templateFile = require("./_popup.html");
 ich.addTemplate("popup", templateFile);
 
-function highlightFeature(e) {
-    var layer = e.target;
-    layer.setStyle({
-      radius: 8,
-      fillColor: "rgb(60, 60, 60)",
-      color: "#ffffff",
-      weight: 2,
-      opacity: .5,
-      fillOpacity:1
-    });
-
-    if (!L.Browser.ie && !L.Browser.opera) {
-        layer.bringToFront();
-    }
-}
-function resetHighlight(e) {
-
-  geojson.resetStyle(e.target);
-}
+// function highlightFeature(e) {
+//     var layer = e.target;
+//     layer.setStyle({
+//       radius: 8,
+//       fillColor: "rgb(60, 60, 60)",
+//       color: "#ffffff",
+//       weight: 2,
+//       opacity: .5,
+//       fillOpacity:1
+//     });
+//
+//     if (!L.Browser.ie && !L.Browser.opera) {
+//         layer.bringToFront();
+//     }
+// }
+// function resetHighlight(e) {
+//
+//   geojson.resetStyle(e.target);
+// }
 
 var currentItem = null;
 
+
 var onEachFeature = function(feature, layer) {
   feature.layer = layer;
-
   layer.on('click', function(e) {
     currentItem = feature;
     var index = data.features.indexOf(feature);
     $(".goto.back").toggleClass("disabled", index == 0);
     $(".goto.next").toggleClass("disabled", index == data.features.length - 1);
-    map.fitBounds(e.target.getBounds(), {maxZoom: 14});
+    map.fitBounds(e.target.getBounds(), {maxZoom: 13});
     var container = $(".pop-container");
     container.html(ich.popup(feature.properties));
     $(".close").click(function() {
       container.html("");
     });
   });
-  layer.on({
-    mouseover: highlightFeature,
-    mouseout: resetHighlight
-  })
+  // layer.on({
+  //   mouseover: highlightFeature,
+  //   mouseout: resetHighlight
+  // })
 
 };
 
@@ -89,22 +89,26 @@ var geojson = L.geoJson(data, {
     onEachFeature: onEachFeature
 }).addTo(map);
 
-
 $(".goto").on("click", function() {
-  if (currentItem === null) {
-    data.features[0].layer.fire("click");
-    return;
+  if (currentItem) {
+    geojson.resetStyle(currentItem.layer);
+    var shift = this.classList.contains("next") ? 1 : -1;
+    var index = data.features.indexOf(currentItem);
+    // geojson.resetStyle(data.features[index].layer);
+    index += shift;
+
+    if (index < 0) return;
+    if (index === 71);
+    if (index >= data.features.length) return;
+
+    currentItem = data.features[index];
+
+  } else {
+    currentItem = data.features[0];
   }
-  var shift = this.classList.contains("next") ? 1 : -1;
-  var index = data.features.indexOf(currentItem);
-  geojson.resetStyle(data.features[index].layer);
-  index += shift;
 
-  if (index < 0) return;
-  if (index >= data.features.length) return;
-
-  data.features[index].layer.fire("click");
-  data.features[index].layer.setStyle({
+  currentItem.layer.fire("click");
+  currentItem.layer.setStyle({
     radius: 8,
     fillColor: "rgb(12, 12, 12)",
     color: "#ffffff",
@@ -112,8 +116,13 @@ $(".goto").on("click", function() {
     opacity: 1,
     fillOpacity:1
   });
+  currentItem.layer.bringToFront();
+  });
 
-});
+// $(".goto").on("click", function() {
+//   // if (lastClickedLayer){
+//   geojson.resetStyle(currentItem.layer);
+// });
 
 // $(".goto").on("mouseout", function() {
 //   if (currentItem === null) {
