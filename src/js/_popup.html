@@ -2,13 +2,15 @@
   <div class="close">X</div>
   <div class="date">Date of death: {{date}}</div>
   {{#officer}}<div class="officer">{{officer}}</div>{{/officer}}
+  {{#delayed}}<div class="delayed">{{delayed}}</div>{{/delayed}}  
   <div class="descript"><span class="emphasis">{{victim}}<br>{{#victim2}}{{victim2}}</span>{{/victim2}}</div>
 
   <div class="descript">{{location}}
     <span class="charged">{{details}}</span>
     {{#links}}<a class="link" href="{{links}}" target="_blank">Read more here</a>
     {{#additional_links}} and <a class="link" href="{{additional_links}}" target="_blank">here</a>{{/additional_links}}
-    {{#add_links}} and <a class="link" href="{{add_links}}" target="_blank">here</a>{{/add_links}}
+    {{#add_links}} or <a class="link" href="{{add_links}}" target="_blank">here</a>{{/add_links}}
+    {{#add_links2}} or <a class="link" href="{{add_links2}}" target="_blank">here</a>{{/add_links2}}
     {{/links}}
   </div>
 </div>

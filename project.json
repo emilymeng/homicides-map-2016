@@ -6,7 +6,7 @@
     },
     "live": {
       "bucket": "projects.seattletimes.com",
-      "path": "2017/local/homicides-2016"
+      "path": "2018/local/homicides-2017"
     }
   },
   "title": "",

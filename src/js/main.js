@@ -9,7 +9,7 @@ var map = element.map;
 
 var $ = require("jquery");
 
-var data = require("./homicides16.geo.json");
+var data = require("./homicides17.geo.json");
 data.features.sort((a, b) => a.properties.order - b.properties.order);
 
 //ICH code for popup template if needed----------
@@ -47,7 +47,7 @@ var onEachFeature = function(feature, layer) {
     var index = data.features.indexOf(feature);
     $(".goto.back").toggleClass("disabled", index == 0);
     $(".goto.next").toggleClass("disabled", index == data.features.length - 1);
-    map.fitBounds(e.target.getBounds(), {maxZoom: 13});
+    map.fitBounds(e.target.getBounds(), {maxZoom: 12});
     var container = $(".pop-container");
     container.html(ich.popup(feature.properties));
     $(".close").click(function() {
@@ -65,7 +65,7 @@ map.scrollWheelZoom.disable();
 
 function getColor(d) {
   return d == "OIS" ? "#eaa238" :
-                       "#6e016b"
+                       "#446BCC"
 }
 
 function geojsonMarkerOptions(feature) {
@@ -103,20 +103,20 @@ $(".goto").on("click", function() {
 
     currentItem = data.features[index];
 
-  } else {
-    currentItem = data.features[0];
-  }
+    } else {
+      currentItem = data.features[0];
+    }
 
-  currentItem.layer.fire("click");
-  currentItem.layer.setStyle({
-    radius: 8,
-    fillColor: "rgb(12, 12, 12)",
-    color: "#ffffff",
-    weight: 2,
-    opacity: 1,
-    fillOpacity:1
-  });
-  currentItem.layer.bringToFront();
+    currentItem.layer.fire("click");
+    currentItem.layer.setStyle({
+      radius: 7,
+      fillColor: getColor(currentItem.properties.type),
+      color: "#000000",
+      weight: 2.5,
+      opacity: 1,
+      fillOpacity:.9
+    });
+    currentItem.layer.bringToFront();
   });
 
 // $(".goto").on("click", function() {
