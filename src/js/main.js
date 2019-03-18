@@ -9,7 +9,7 @@ var map = element.map;
 
 var $ = require("jquery");
 
-var data = require("./homicides17.geo.json");
+var data = require("./homicides18.geo.json");
 data.features.sort((a, b) => a.properties.order - b.properties.order);
 
 //ICH code for popup template if needed----------
@@ -65,7 +65,7 @@ map.scrollWheelZoom.disable();
 
 function getColor(d) {
   return d == "OIS" ? "#eaa238" :
-                       "#446BCC"
+                       "#006849"
 }
 
 function geojsonMarkerOptions(feature) {
@@ -82,7 +82,7 @@ function geojsonMarkerOptions(feature) {
 
 var geojson = L.geoJson(data, {
     pointToLayer: function (features, latlng) {
-      var marker = L.circleMarker([latlng.lng, latlng.lat]);
+      var marker = L.circleMarker([latlng.lat, latlng.lng]);
       return marker;
     },
     style: geojsonMarkerOptions,
